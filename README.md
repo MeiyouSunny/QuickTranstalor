@@ -1,0 +1,2 @@
+# QuickTranstalor
+Translate tool
