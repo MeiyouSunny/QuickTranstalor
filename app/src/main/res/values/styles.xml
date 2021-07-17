@@ -1,0 +1,17 @@
+<resources>
+
+    <style name="ClickableStyle">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="ClickableStyle_">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="CardViewClick">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+</resources>
