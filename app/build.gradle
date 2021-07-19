@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        sign {
+            storeFile file('C:\\Users\\Administrator\\Desktop\\QuickTranstalor\\app\\key.jks')
+            keyAlias 'translator'
+            storePassword 'quicktranslator'
+            keyPassword 'quicktransla'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -18,6 +26,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig signingConfigs.sign
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
