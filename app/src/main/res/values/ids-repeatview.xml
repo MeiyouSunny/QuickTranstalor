@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="back" type="id" />
+    <item name="title" type="id" />
+    <item name="other" type="id" />
+    <item name="retryId" type="id" />
+    <item name="repeatView" type="id" />
+    <item name="recyclerView" type="id" />
+    <item name="header_view" type="id" />
+</resources>

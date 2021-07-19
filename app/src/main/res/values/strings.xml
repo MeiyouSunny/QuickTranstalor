@@ -1,20 +1,38 @@
 <resources>
     <string name="app_name">Quick Translator</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="share_app">Quick Translator - foreign language pass. https://play.google.com/store/apps/details?id=com.appsophy.quick.translator</string>
 
 
     <string name="menu_settings">Settings</string>
     <string name="menu_share">Share</string>
     <string name="menu_rate">Rate Us</string>
     <string name="menu_feedback">Feedback</string>
-    <string name="menu_policy">Privaci Policy</string>
+    <string name="menu_policy">Privacy Policy</string>
 
     <string name="translate">Translate</string>
     <string name="input_here">Please write here</string>
+
+    <string name="select_language">Select Language</string>
+    <string name="copied">Copied</string>
+    <string name="deleted">Deleted!</string>
+    <string name="loading">Loading...</string>
+
+    <string name="auto_copy">Automatic copy after translation</string>
+    <string name="auto_speak">Automatic speak after translation</string>
+    <string name="clear_history">Clear History</string>
+    <string name="cleared">Cleared</string>
+
+    <string name="privaci_policy">Privacy Policy</string>
+
+    <string name="pls_speack">Please speack...</string>
+    <string name="recognize_complete">Recognize complete</string>
+
+    <string name="auto_not_switch">Audo detect cannot be switched</string>
+
+    <string name="exit_app">Exit app</string>
+    <string name="exit_hint">Do you want to exit?</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="rate_us">Please comment on our application</string>
 
 </resources>

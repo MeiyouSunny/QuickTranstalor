@@ -1,44 +1,158 @@
 [
-    {
-        "language": "Chinese",
-        "codeBaidu": "zh",
-        "codeIFly": "zh_cn",
-        "icon": "zh_cn"
-    },
-    {
-        "language": "English(US)",
-        "codeBaidu": "en",
-        "codeIFly": "en_us",
-        "icon": "en_us"
-    },
-    {
-        "language": "Japanese",
-        "codeBaidu": "jp",
-        "codeIFly": "ja_jp",
-        "icon": "ja_jp"
-    },
-    {
-        "language": "Russian",
-        "codeBaidu": "ru",
-        "codeIFly": "ru-ru",
-        "icon": "ru_ru"
-    },
-    {
-        "language": "Spanish",
-        "codeBaidu": "spa",
-        "codeIFly": "es_es",
-        "icon": "es_es"
-    },
-    {
-        "language": "French",
-        "codeBaidu": "fra",
-        "codeIFly": "fr_fr",
-        "icon": "fr_fr"
-    },
-    {
-        "language": "Korean",
-        "codeBaidu": "kor",
-        "codeIFly": "ko_kr",
-        "icon": "ko_kr"
-    }
+  {
+    "language": "Auto",
+    "codeBaidu": "auto",
+    "codeIFly": "auto",
+    "icon": "auto_detect"
+  },
+  {
+    "language": "Chinese",
+    "codeBaidu": "zh",
+    "codeIFly": "zh_cn",
+    "icon": "zh_cn"
+  },
+  {
+    "language": "English(US)",
+    "codeBaidu": "en",
+    "codeIFly": "en_us",
+    "icon": "en_us"
+  },
+  {
+    "language": "German",
+    "codeBaidu": "de",
+    "codeIFly": "de",
+    "icon": "de"
+  },
+  {
+    "language": "Japanese",
+    "codeBaidu": "jp",
+    "codeIFly": "ja_jp",
+    "icon": "ja_jp"
+  },
+  {
+    "language": "Korean",
+    "codeBaidu": "kor",
+    "codeIFly": "ko_kr",
+    "icon": "ko_kr"
+  },
+  {
+    "language": "Thai",
+    "codeBaidu": "th",
+    "codeIFly": "th",
+    "icon": "th"
+  },
+  {
+    "language": "French",
+    "codeBaidu": "fra",
+    "codeIFly": "fr_fr",
+    "icon": "fr_fr"
+  },
+  {
+    "language": "Spanish",
+    "codeBaidu": "spa",
+    "codeIFly": "es_es",
+    "icon": "es_es"
+  },
+  {
+    "language": "Portuguese",
+    "codeBaidu": "pt",
+    "codeIFly": "pt",
+    "icon": "pt"
+  },
+  {
+    "language": "Italian",
+    "codeBaidu": "it",
+    "codeIFly": "it",
+    "icon": "it"
+  },
+  {
+    "language": "Russian",
+    "codeBaidu": "ru",
+    "codeIFly": "ru",
+    "icon": "ru"
+  },
+  {
+    "language": "Danish",
+    "codeBaidu": "dan",
+    "codeIFly": "dan",
+    "icon": "dan"
+  },
+  {
+    "language": "Dutch",
+    "codeBaidu": "nl",
+    "codeIFly": "nl",
+    "icon": "nl"
+  },
+  {
+    "language": "Swedish",
+    "codeBaidu": "swe",
+    "codeIFly": "swe",
+    "icon": "swe"
+  },
+  {
+    "language": "Polish",
+    "codeBaidu": "pl",
+    "codeIFly": "pl",
+    "icon": "pl"
+  },
+  {
+    "language": "Romanian",
+    "codeBaidu": "rom",
+    "codeIFly": "rom",
+    "icon": "rom"
+  },
+  {
+    "language": "Greek",
+    "codeBaidu": "el",
+    "codeIFly": "el",
+    "icon": "el"
+  },
+  {
+    "language": "Hungarian",
+    "codeBaidu": "hu",
+    "codeIFly": "hu",
+    "icon": "hu"
+  },
+  {
+    "language": "Vietnamese",
+    "codeBaidu": "vie",
+    "codeIFly": "vie",
+    "icon": "vie"
+  },
+  {
+    "language": "Finnish",
+    "codeBaidu": "fin",
+    "codeIFly": "fin",
+    "icon": "fin"
+  },
+  {
+    "language": "Arabic",
+    "codeBaidu": "ara",
+    "codeIFly": "ara",
+    "icon": "ara"
+  },
+  {
+    "language": "Estonian",
+    "codeBaidu": "est",
+    "codeIFly": "est",
+    "icon": "est"
+  },
+  {
+    "language": "Czech",
+    "codeBaidu": "cs",
+    "codeIFly": "cs",
+    "icon": "cs"
+  },
+  {
+    "language": "Bulgarian",
+    "codeBaidu": "bul",
+    "codeIFly": "bul",
+    "icon": "bul"
+  },
+  {
+    "language": "Slovenian",
+    "codeBaidu": "slo",
+    "codeIFly": "slo",
+    "icon": "slo"
+  }
 ]

@@ -7,11 +7,11 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.quick.translator"
-        minSdkVersion 16
+        applicationId "com.appsophy.quick.translator"
+        minSdkVersion 25
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,5 +62,7 @@ dependencies {
 
     implementation 'com.hmcx:dollar:1.0.1'
     implementation 'com.hmcx:repeatview:1.0.9'
+    implementation 'de.greenrobot:eventbus:3.0.0-beta1'
+    implementation 'com.kyleduo.switchbutton:library:1.4.6'
 
 }

@@ -14,4 +14,15 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
+    <!-- RepeatView -->
+    <style name="RepeatView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <!--<item name="refreshHeader">@layout/refresh_header_arrow</item>-->
+        <!--<item name="refreshHolder">@string/repeat_view_header_holder_arrow</item>-->
+        <!--<item name="loadMoreFooter">@layout/load_more_footer</item>-->
+        <!--<item name="loadMoreHolder">@string/repeat_view_load_more_footer</item>-->
+        <item name="retryId">@id/retryId</item>
+    </style>
+
 </resources>

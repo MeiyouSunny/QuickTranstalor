@@ -1,121 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_bg"
-    android:orientation="vertical"
-    tools:context=".ui.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="lanFrom"
+            type="com.appsophy.quick.translator.model.Language" />
+
+        <variable
+            name="lanTo"
+            type="com.appsophy.quick.translator.model.Language" />
+
+        <variable
+            name="resUtil"
+            type="com.appsophy.quick.translator.util.ResUtil" />
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:background="@color/green"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@color/gray_bg"
+        android:orientation="vertical"
+        tools:context=".ui.HomeFragment">
 
-        <ImageView
-            style="@style/ClickableStyle"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:onClick="openMenu"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_menu" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_above="@+id/bottomTool"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/bg_white_stoke"
-            android:padding="6dp">
+            android:layout_height="54dp"
+            android:background="@color/green"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/etInput"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:gravity="top|left"
-                android:hint="@string/input_here"
-                android:maxLength="500"
-                android:textSize="16sp" />
+            <ImageView
+                style="@style/ClickableStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:onClick="openMenu"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_menu" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:drawableRight="@drawable/ic_input"
-                android:drawablePadding="4dp"
-                android:text="0/500"
-                android:textSize="14sp" />
+                android:layout_marginLeft="8dp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
-
-        </RelativeLayout>
-
+        </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/bottomTool"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_alignParentBottom="true"
-            android:paddingLeft="62dp"
-            android:paddingRight="62dp">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/openOCR"
-                style="@style/ClickableStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_centerVertical="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_ocr" />
+            <RelativeLayout
+                android:id="@+id/topTool"
+                android:layout_width="match_parent"
+                android:layout_height="68dp">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/translate"
-                style="@style/CardViewClick"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/bg_green_round_corner"
-                android:gravity="center"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="@string/translate"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="38dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/exchange"
+                    android:foreground="#11000000"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="1dp">
 
-            <ImageView
-                android:id="@+id/voice"
-                style="@style/ClickableStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_voice" />
+                    <RelativeLayout
+                        android:id="@+id/lanSelectFrom"
+                        style="@style/ClickableStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="8dp">
 
+                        <ImageView
+                            android:id="@+id/lanFromFlag"
+                            android:layout_width="20dp"
+                            android:layout_height="14dp"
+                            android:layout_centerVertical="true"
+                            app:drawableRes="@{resUtil.getDrawableId(lanFrom.icon)}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="4dp"
+                            android:layout_toRightOf="@+id/lanFromFlag"
+                            android:text="@{lanFrom.language}"
+                            android:textColor="#696969"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="4dp"
+                            android:src="@drawable/ic_arrow_down" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:id="@+id/exchange"
+                    style="@style/ClickableStyle"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_exchange" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="120dp"
+                    android:layout_height="38dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/exchange"
+                    android:foreground="#11000000"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="1dp">
+
+                    <RelativeLayout
+                        android:id="@+id/lanSelectTo"
+                        style="@style/ClickableStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="8dp">
+
+                        <ImageView
+                            android:id="@+id/lanToFlag"
+                            android:layout_width="20dp"
+                            android:layout_height="14dp"
+                            android:layout_centerVertical="true"
+                            app:drawableRes="@{resUtil.getDrawableId(lanTo.icon)}" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="4dp"
+                            android:layout_toRightOf="@+id/lanToFlag"
+                            android:text="@{lanTo.language}"
+                            android:textColor="#696969"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="4dp"
+                            android:src="@drawable/ic_arrow_down" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#696969" />
+
+            </RelativeLayout>
+
+
+            <likly.view.repeat.RepeatView
+                android:id="@+id/repeatView"
+                style="@style/RepeatView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/layoutInput"
+                android:layout_below="@+id/topTool"
+                app:viewHolderClass="com.appsophy.quick.translator.adapter.AdapterRecord"
+                app:viewHolderLayout="@layout/item_record" />
+
+            <RelativeLayout
+                android:id="@+id/layoutInput"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_above="@+id/bottomTool"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_white_stoke"
+                android:padding="6dp">
+
+                <EditText
+                    android:id="@+id/etInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="top|left"
+                    android:hint="@string/input_here"
+                    android:maxLength="500"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/inputCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:drawableRight="@drawable/ic_input"
+                    android:drawablePadding="4dp"
+                    android:text="0/500"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bottomTool"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray_bg"
+                android:paddingLeft="62dp"
+                android:paddingRight="62dp">
+
+                <ImageView
+                    android:id="@+id/openOCR"
+                    style="@style/ClickableStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_ocr" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/translate"
+                    style="@style/CardViewClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_green_round_corner"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="@string/translate"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/voice"
+                    style="@style/ClickableStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_voice" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-
-</LinearLayout>
+</layout>
