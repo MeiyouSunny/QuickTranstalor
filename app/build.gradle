@@ -5,10 +5,10 @@ plugins {
 android {
     signingConfigs {
         sign {
-            storeFile file('C:\\Users\\Administrator\\Desktop\\QuickTranstalor\\app\\key.jks')
+            storeFile file('key.jks')
             keyAlias 'translator'
             storePassword 'quicktranslator'
-            keyPassword 'quicktransla'
+            keyPassword 'quicktranslator'
         }
     }
     compileSdkVersion 30
