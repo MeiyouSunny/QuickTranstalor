@@ -64,15 +64,15 @@ public class RateDialog {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (mExit) {
-                                    $.config().putBoolean("exitAlert", false);
-                                    android.os.Process.killProcess(android.os.Process.myPid());
-                                    return;
-                                }
                                 if (mRateScore > 3) {
                                     SystemUtil.launchAppDetail(mContext);
                                 } else {
                                     $.config().putString("rate", etInput.getText().toString());
+                                }
+                                if (mExit) {
+                                    $.config().putBoolean("exitAlert", false);
+                                    android.os.Process.killProcess(android.os.Process.myPid());
+                                    return;
                                 }
                             }
                         })

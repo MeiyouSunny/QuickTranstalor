@@ -20,6 +20,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickTranslator.NoActionBar">
 
+        <!-- AdMob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8991501814540546~1900074029" />
+
+        <!-- FB -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider4095776223809300"
+            android:exported="true" />
+
         <activity android:name="com.appsophy.quick.translator.ui.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

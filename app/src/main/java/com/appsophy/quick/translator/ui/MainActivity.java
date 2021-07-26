@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         boolean exitAlert = $.config().getBoolean("exitAlert", true);
         if (exitAlert) {
+            $.config().putBoolean("exitAlert", false);
             RateDialog rateDialog = new RateDialog(this);
             rateDialog.showExitApp();
         } else {

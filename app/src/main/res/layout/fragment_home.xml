@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -55,111 +56,138 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/topTool"
                 android:layout_width="match_parent"
-                android:layout_height="68dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="120dp"
-                    android:layout_height="38dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/exchange"
-                    android:foreground="#11000000"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="1dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp">
 
-                    <RelativeLayout
-                        android:id="@+id/lanSelectFrom"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="120dp"
+                        android:layout_height="38dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/exchange"
+                        android:foreground="#11000000"
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="1dp">
+
+                        <RelativeLayout
+                            android:id="@+id/lanSelectFrom"
+                            style="@style/ClickableStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="8dp">
+
+                            <ImageView
+                                android:id="@+id/lanFromFlag"
+                                android:layout_width="20dp"
+                                android:layout_height="14dp"
+                                android:layout_centerVertical="true"
+                                app:drawableRes="@{resUtil.getDrawableId(lanFrom.icon)}" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="4dp"
+                                android:layout_toRightOf="@+id/lanFromFlag"
+                                android:text="@{lanFrom.language}"
+                                android:textColor="#696969"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="4dp"
+                                android:src="@drawable/ic_arrow_down" />
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/exchange"
                         style="@style/ClickableStyle"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_exchange" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="120dp"
+                        android:layout_height="38dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/exchange"
+                        android:foreground="#11000000"
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="1dp">
+
+                        <RelativeLayout
+                            android:id="@+id/lanSelectTo"
+                            style="@style/ClickableStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="8dp">
+
+                            <ImageView
+                                android:id="@+id/lanToFlag"
+                                android:layout_width="20dp"
+                                android:layout_height="14dp"
+                                android:layout_centerVertical="true"
+                                app:drawableRes="@{resUtil.getDrawableId(lanTo.icon)}" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="4dp"
+                                android:layout_toRightOf="@+id/lanToFlag"
+                                android:text="@{lanTo.language}"
+                                android:textColor="#696969"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="4dp"
+                                android:src="@drawable/ic_arrow_down" />
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="8dp">
+                        android:layout_height="0.5dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#696969" />
 
-                        <ImageView
-                            android:id="@+id/lanFromFlag"
-                            android:layout_width="20dp"
-                            android:layout_height="14dp"
-                            android:layout_centerVertical="true"
-                            app:drawableRes="@{resUtil.getDrawableId(lanFrom.icon)}" />
+                </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="4dp"
-                            android:layout_toRightOf="@+id/lanFromFlag"
-                            android:text="@{lanFrom.language}"
-                            android:textColor="#696969"
-                            android:textSize="14sp" />
+                <FrameLayout
+                    android:id="@+id/adContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"/>
 
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="4dp"
-                            android:src="@drawable/ic_arrow_down" />
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <ImageView
-                    android:id="@+id/exchange"
-                    style="@style/ClickableStyle"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_exchange" />
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="120dp"
-                    android:layout_height="38dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/exchange"
-                    android:foreground="#11000000"
-                    app:cardCornerRadius="24dp"
-                    app:cardElevation="1dp">
-
-                    <RelativeLayout
-                        android:id="@+id/lanSelectTo"
-                        style="@style/ClickableStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="8dp">
-
-                        <ImageView
-                            android:id="@+id/lanToFlag"
-                            android:layout_width="20dp"
-                            android:layout_height="14dp"
-                            android:layout_centerVertical="true"
-                            app:drawableRes="@{resUtil.getDrawableId(lanTo.icon)}" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="4dp"
-                            android:layout_toRightOf="@+id/lanToFlag"
-                            android:text="@{lanTo.language}"
-                            android:textColor="#696969"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="4dp"
-                            android:src="@drawable/ic_arrow_down" />
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
+<!--                <com.google.android.gms.ads.AdView-->
+<!--                    android:id="@+id/adView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    ads:adSize="SMART_BANNER"-->
+<!--                    ads:adUnitId="ca-app-pub-8991501814540546/1453066057" />-->
 
                 <View
                     android:layout_width="match_parent"
@@ -167,8 +195,7 @@
                     android:layout_alignParentBottom="true"
                     android:background="#696969" />
 
-            </RelativeLayout>
-
+            </LinearLayout>
 
             <likly.view.repeat.RepeatView
                 android:id="@+id/repeatView"
@@ -256,6 +283,39 @@
                     android:layout_centerVertical="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_voice" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutVPN"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/green_"
+                android:visibility="gone"
+                android:paddingRight="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Security Protection Swtich"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/switchAutoCopy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:kswBackDrawable="@drawable/ios_back_drawable"
+                    app:kswBackMeasureRatio="1.4"
+                    app:kswThumbDrawable="@drawable/ios_thumb_selector"
+                    app:kswThumbMarginBottom="-8dp"
+                    app:kswThumbMarginLeft="-5dp"
+                    app:kswThumbMarginRight="-5dp"
+                    app:kswThumbMarginTop="-2.5dp" />
 
             </RelativeLayout>
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "18492520026",
+    "project_id": "quick-translator-cb934",
+    "storage_bucket": "quick-translator-cb934.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18492520026:android:1d967da52f433608ab8a63",
+        "android_client_info": {
+          "package_name": "com.appsophy.quick.translator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18492520026-nmuu4jkdjvskcmn9l746br4034p630gq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh42FRz_ycoC3GkAWxzrIMGh0FHgMXXtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18492520026-nmuu4jkdjvskcmn9l746br4034p630gq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

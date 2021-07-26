@@ -1,4 +1,7 @@
 <resources>
+    <string name="facebook_app_id">4095776223809300</string>
+    <string name="facebook_client_token">Facebook Client ID</string>
+
     <string name="app_name">Quick Translator</string>
     <string name="share_app">Quick Translator - foreign language pass. https://play.google.com/store/apps/details?id=com.appsophy.quick.translator</string>
 

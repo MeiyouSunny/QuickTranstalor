@@ -1,12 +1,9 @@
 package com.appsophy.quick.translator.ui;
 
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.appsophy.quick.translator.R;
 
@@ -40,13 +37,6 @@ public class WebPageActivity extends BaseTitleActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
-
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();
-            }
-        });
 
         mWebView.loadUrl(url);
     }

@@ -20,6 +20,7 @@ public class SystemUtil {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+        sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         sendIntent.setType("text/plain");
 
         Intent shareIntent = Intent.createChooser(sendIntent, null);
@@ -28,6 +29,7 @@ public class SystemUtil {
 
     public static void sendMail(Context context) {
         Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setPackage("com.android.email");
         intent.setType("email/text");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"quicktranslator@gmail.com"});
@@ -58,16 +60,32 @@ public class SystemUtil {
         return $.config().getBoolean("AutoCopy", false);
     }
 
-    public static boolean getAutoSpeakFlag() {
-        return $.config().getBoolean("AutoSpeak", false);
-    }
-
     public static void saveAutoCopyFlag(boolean flag) {
         $.config().putBoolean("AutoCopy", flag);
     }
 
+    public static boolean getAutoSpeakFlag() {
+        return $.config().getBoolean("AutoSpeak", false);
+    }
+
     public static void saveAutoSpeakFlag(boolean flag) {
         $.config().putBoolean("AutoSpeak", flag);
+    }
+
+    public static boolean isFirstTranslate() {
+        return $.config().getBoolean("translate", true);
+    }
+
+    public static void setFirstTranslateFalse() {
+        $.config().putBoolean("translate", false);
+    }
+
+    public static boolean isFirstVoiceTranslate() {
+        return $.config().getBoolean("VoiceTranslate", true);
+    }
+
+    public static void setFirstVoiceTranslateFalse() {
+        $.config().putBoolean("VoiceTranslate", false);
     }
 
 }

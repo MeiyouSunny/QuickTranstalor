@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,15 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.baidu.ocr.sdk.OCR;
-import com.baidu.ocr.sdk.OnResultListener;
-import com.baidu.ocr.sdk.exception.OCRError;
-import com.baidu.ocr.sdk.model.GeneralParams;
-import com.baidu.ocr.sdk.model.GeneralResult;
-import com.baidu.ocr.sdk.model.Word;
-import com.baidu.ocr.sdk.model.WordSimple;
-import com.baidu.ocr.ui.camera.CameraActivity;
-import com.google.gson.Gson;
 import com.appsophy.quick.translator.R;
 import com.appsophy.quick.translator.databinding.FragmentHomeBinding;
 import com.appsophy.quick.translator.event.Event;
@@ -34,14 +24,26 @@ import com.appsophy.quick.translator.model.Record;
 import com.appsophy.quick.translator.model.TranslateResult;
 import com.appsophy.quick.translator.records.IRecordManager;
 import com.appsophy.quick.translator.records.RecordManager;
+import com.appsophy.quick.translator.util.AdViewLoader;
 import com.appsophy.quick.translator.util.FileUtil;
 import com.appsophy.quick.translator.util.FormattingUtil;
+import com.appsophy.quick.translator.util.InterstitialAdLoader;
 import com.appsophy.quick.translator.util.LanguageUtil;
+import com.appsophy.quick.translator.util.LoadingDialog;
 import com.appsophy.quick.translator.util.ResUtil;
 import com.appsophy.quick.translator.util.SystemUtil;
 import com.appsophy.quick.translator.util.TTSPlayer;
 import com.appsophy.quick.translator.util.ToastUtil;
 import com.appsophy.quick.translator.util.VoiceRecognizer;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.GeneralParams;
+import com.baidu.ocr.sdk.model.GeneralResult;
+import com.baidu.ocr.sdk.model.Word;
+import com.baidu.ocr.sdk.model.WordSimple;
+import com.baidu.ocr.ui.camera.CameraActivity;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -51,7 +53,7 @@ import java.util.List;
 import java.util.Random;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -68,6 +70,8 @@ import okhttp3.Response;
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private final int REQUEST_SELECT_LANGUAGE_FROM = 2;
     private final int REQUEST_SELECT_LANGUAGE_TO = 3;
+    private final int REQUEST_PERMISSION_OCR = 2;
+    private final int REQUEST_PERMISSION_VOICE = 3;
 
     private String appId = "20210714000888211";
     private String key = "PYb_o0S1HXwUv5czSq3t";
@@ -79,6 +83,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     Language mLanguageFrom, mLanguageTo;
     String mTextFrom, mTextTo;
     IRecordManager mRecordManager;
+
+    InterstitialAdLoader mInterstitialAdLoader;
+    AdViewLoader mAdViewLoader;
+
+    private boolean mIsVoice, mIsTranslate;
+
+    private LoadingDialog mLoadingDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -135,14 +146,57 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        // Banner广告
+        mAdViewLoader = new AdViewLoader(getContext(), mBindRoot.adContainer);
+        mAdViewLoader.loadAd();
+
+        // 插屏广告
+        mInterstitialAdLoader = new InterstitialAdLoader();
+
+        mLoadingDialog = new LoadingDialog();
+    }
+
+    private void loadInterstitialAd() {
+        $.toast().text("Tanslating...").show();
+        if (mInterstitialAdLoader != null)
+            mInterstitialAdLoader.loadAd(getActivity());
+    }
+
     public void openOCR() {
-        requestPermissions();
         if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.CAMERA}, 1);
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSION_OCR);
         } else {
             openCamera();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        boolean hasGrant = true;
+        if (grantResults != null && grantResults.length > 0) {
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    hasGrant = false;
+                    break;
+                }
+            }
+        }
+
+        if (REQUEST_PERMISSION_OCR == requestCode) {
+            if (hasGrant)
+                openOCR();
+
+        } else if (REQUEST_PERMISSION_VOICE == requestCode) {
+            if (hasGrant)
+                voice();
         }
     }
 
@@ -188,6 +242,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     if (!TextUtils.isEmpty(data)) {
                         mBindRoot.etInput.setText(data);
                         mBindRoot.etInput.setSelection(data.length());
+                        // AD
+//                        loadInterstitialAd();
                     }
                 }
 
@@ -197,6 +253,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     ToastUtil.showToast(getContext().getApplicationContext(), "识别失败");
                 }
             });
+//            $.toast().text("Recognizing...").show();
+
         } else if (requestCode == REQUEST_SELECT_LANGUAGE_FROM) {
             mLanguageFrom = (Language) data.getSerializableExtra("language");
             mBindRoot.setLanFrom(mLanguageFrom);
@@ -244,37 +302,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void voice() {
-        requestPermissions();
+        if (mIsVoice)
+            return;
 
         if (ContextCompat.checkSelfPermission(getContext(),
-                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSION_VOICE);
         } else {
+            mIsVoice = true;
             mVoiceRecognizer.startRecognize(new VoiceRecognizer.VoiceRecognizeListener() {
                 @Override
                 public void onVoiceResult(String result) {
+                    mIsVoice = false;
                     if (!TextUtils.isEmpty(result)) {
                         mBindRoot.etInput.setText(result);
                         mBindRoot.etInput.setSelection(result.length());
+                        // AD
+//                        loadInterstitialAd();
                     }
                 }
             });
-        }
-    }
-
-    private void requestPermissions() {
-        try {
-            if (Build.VERSION.SDK_INT >= 23) {
-                int permission = ActivityCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                if (permission != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]
-                            {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0x0010);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -284,14 +334,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void translate() {
         mTextFrom = mBindRoot.etInput.getText().toString().trim();
-        if (!mTextFrom.isEmpty() || !"".equals(mTextFrom)) {//不为空
-            String salt = num(1);//随机数
-            //拼接一个字符串然后加密
-            String spliceStr = appId + mTextFrom + salt + key;//根据百度要求 拼接
-            String sign = stringToMD5(spliceStr);//将拼接好的字符串进行MD5加密   作为一个标识
-            //异步Get请求访问网络
-            asyncGet(mTextFrom, mLanguageFrom.codeBaidu, mLanguageTo.codeBaidu, salt, sign);
+        if (TextUtils.isEmpty(mTextFrom)) {
+            $.toast().text("Please input some...").show();
+            return;
         }
+
+        if (mIsTranslate)
+            return;
+
+        if (SystemUtil.isFirstTranslate()) {
+            SystemUtil.setFirstTranslateFalse();
+        } else {
+            loadInterstitialAd();
+        }
+
+        mIsTranslate = true;
+        String salt = num(1);//随机数
+        //拼接一个字符串然后加密
+        String spliceStr = appId + mTextFrom + salt + key;//根据百度要求 拼接
+        String sign = stringToMD5(spliceStr);//将拼接好的字符串进行MD5加密   作为一个标识
+        //异步Get请求访问网络
+        mLoadingDialog.showLoading(getContext());
+        asyncGet(mTextFrom, mLanguageFrom.codeBaidu, mLanguageTo.codeBaidu, salt, sign);
     }
 
     /**
@@ -318,16 +382,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
-                //异常返回
+                mIsTranslate = false;
                 goToUIThread(e.toString(), 0);
 
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                //正常返回
+                mIsTranslate = false;
                 goToUIThread(response.body().string(), 1);
-
             }
         });
     }
@@ -339,6 +402,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
      * @param key    表示正常还是异常
      */
     private void goToUIThread(final Object object, final int key) {
+        mLoadingDialog.dismiss();
         //切换到主线程处理数据
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -347,13 +411,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     Log.e("MainActivity", object.toString());
                 } else {//正常返回
                     final TranslateResult result = new Gson().fromJson(object.toString(), TranslateResult.class);
+                    if (result != null && result.getTrans_result() != null && result.getTrans_result().size() > 0) {
+                        mTextTo = result.getTrans_result().get(0).getDst();
 
-                    mTextTo = result.getTrans_result().get(0).getDst();
+                        autoCopyAndSpeak();
 
-                    autoCopyAndSpeak();
-
-                    saveRecord();
-                    refreshRecords();
+                        saveRecord();
+                        refreshRecords();
+                    }
                 }
             }
         });
